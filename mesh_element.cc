@@ -46,8 +46,8 @@ Mesh_Element::Mesh_Element(const Mesh_Element &other) {
     physical    = other.physical;
     geometrical = other.geometrical;
 
-    tags  = new int[ntags];
-    nodes = new int[nnodes];
+    tags  = new unsigned int[ntags];
+    nodes = new unsigned int[nnodes];
     std::copy(other.tags, other.tags+ntags, tags);
     std::copy(other.nodes, other.nodes+nnodes, nodes);
 }
@@ -56,7 +56,7 @@ Mesh_Element::Mesh_Element(std::string &line) {
   std::vector <std::string> *wordlist;
   wordlist = strsplit(line, ' ');
   
-  for (int ind_word=0;ind_word<wordlist->size();ind_word++) {
+  for (int ind_word=0;ind_word<(int)wordlist->size();ind_word++) {
     std::string word = (*wordlist)[ind_word];
     int word_int = atoi(word.c_str());
 
@@ -73,8 +73,8 @@ Mesh_Element::Mesh_Element(std::string &line) {
   assert(list_raw.size() >= 3+ntags);
   assert(ntags >= 2);
 
-  tags = new int[ntags];
-  for (int ind_tag=0;ind_tag<ntags;ind_tag++) {
+  tags = new unsigned int[ntags];
+  for (unsigned int ind_tag=0;ind_tag<ntags;ind_tag++) {
     tags[ind_tag] = list_raw[3+ind_tag];
   }
   physical = tags[0];
@@ -82,9 +82,9 @@ Mesh_Element::Mesh_Element(std::string &line) {
 
   nnodes = list_raw.size() - 3 - ntags;
   assert(nnodes > 0 && nnodes == ElementData[type].num_nodes);
-  nodes = new int[nnodes];
+  nodes = new unsigned int[nnodes];
 
-  for (int ind_node=0;ind_node<nnodes;ind_node++) {
+  for (unsigned int ind_node=0;ind_node<nnodes;ind_node++) {
     nodes[ind_node] = list_raw[3+ntags+ind_node];
   }
 }
@@ -104,12 +104,12 @@ Mesh_Element::disp() {
             << "Number of tags " << ntags << std::endl
             << "Tags ";
 
-  for (int ind_tag = 0; ind_tag < ntags; ind_tag++) {
+  for (unsigned int ind_tag = 0; ind_tag < ntags; ind_tag++) {
     std::cout << tags[ind_tag] << " ";
   }
   std::cout << std::endl << "Number of nodes " << nnodes << std::endl
             << "Nodes ";
-  for (int ind_node = 0; ind_node < nnodes; ind_node++) {
+  for (unsigned int ind_node = 0; ind_node < nnodes; ind_node++) {
     std::cout << nodes[ind_node] << " ";
   }
   std::cout << std::endl;

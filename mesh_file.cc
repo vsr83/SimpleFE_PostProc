@@ -38,7 +38,7 @@ MeshFile::MeshFile(const char *filestr) {
   std::vector <std::string> field_data;
   assert(strlist.size() > 1);
 
-  for (int ind_line=0; ind_line < strlist.size(); ind_line++) {
+  for (unsigned int ind_line=0; ind_line < strlist.size(); ind_line++) {
     line = strlist[ind_line];
 
     if (line[0] == '$') {

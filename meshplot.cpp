@@ -92,7 +92,7 @@ MeshPlot::fixAspectRatio() {
 }
 
 void
-MeshPlot::resizeEvent(QResizeEvent *event) {
+MeshPlot::resizeEvent(QResizeEvent *) {
     // Match window aspect ratio to the aspect ratio of the window.
     if (axisEqual) {
         fixAspectRatio();
@@ -295,7 +295,7 @@ MeshPlot::wheelEvent(QWheelEvent *event) {
 // using drawPixmap.
 
 void
-MeshPlot::paintEvent(QPaintEvent *event) {
+MeshPlot::paintEvent(QPaintEvent *) {
     QStylePainter painter(this);
     painter.drawPixmap(0, 0, pixmap);
 }
@@ -446,6 +446,7 @@ Layer::addLine(QPointF p0, QPointF p1, double width, QString label, QColor color
 void
 Layer::addPolygon(QPolygonF poly, QString label, QColor color) {
     Polygon p;
+    p.label = label;
     p.poly = poly;
     p.color = color;
     p.fillrule = Qt::OddEvenFill;
@@ -515,12 +516,12 @@ Layer::createContours(Mesh *mesh, QVector<double> &solution, int numContours) {
 //        for (int ind_contour = 10; ind_contour < 16; ind_contour++) {
             double cval = minvalue + ind_contour * dval;
             // Find out the intersecting nodes.
-            bool edge0 = (cval>nodeval0) && (cval<nodeval1) ||
-                         (cval<nodeval0) && (cval>nodeval1);
-            bool edge1 = (cval>nodeval1) && (cval<nodeval2) ||
-                         (cval<nodeval1) && (cval>nodeval2);
-            bool edge2 = (cval>nodeval2) && (cval<nodeval0) ||
-                         (cval<nodeval2) && (cval>nodeval0);
+            bool edge0 = ((cval>nodeval0) && (cval<nodeval1)) ||
+	      ((cval<nodeval0) && (cval>nodeval1));
+            bool edge1 = ((cval>nodeval1) && (cval<nodeval2)) ||
+	      ((cval<nodeval1) && (cval>nodeval2));
+            bool edge2 = ((cval>nodeval2) && (cval<nodeval0)) ||
+	      ((cval<nodeval2) && (cval>nodeval0));
 
             if (edge0) {
                 ne0 = np0 + ((cval-nodeval0)/(nodeval1-nodeval0))*(np1-np0);

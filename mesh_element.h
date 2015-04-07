@@ -61,12 +61,12 @@ enum {ELEMENT_LINE2         = 1,
 };
 
 struct elementdata {
-  int type;
-  char *name;
-  int num_nodes;
-  int order;
-  int hnode, hedges, hfaces, hvolumes;
-} static const ElementData[] {
+  unsigned int type;
+  const char *name;
+  unsigned int num_nodes;
+  unsigned int order;
+  unsigned int hnode, hedges, hfaces, hvolumes;
+} static const ElementData[] = {
   0                       , "NULL_ELEMENT",        0,  0,  0, 0, 0, 0,
     ELEMENT_LINE2         , "2-node line",         2,  1,  2, 0, 0, 0,
     ELEMENT_TRIANGLE3     , "3-node triangle",     3,  1,  2, 0, 0, 0,
@@ -113,15 +113,15 @@ class Mesh_Element {
   Mesh_Element(std::string &line);
   ~Mesh_Element();
 
-  int nnodes;
-  int number;
-  int type;
-  int ntags;
-  int physical;
-  int geometrical;
+  unsigned int nnodes;
+  unsigned int number;
+  unsigned int type;
+  unsigned int ntags;
+  unsigned int physical;
+  unsigned int geometrical;
 
-  int *tags;
-  int *nodes;
+  unsigned int *tags;
+  unsigned int *nodes;
 };
 
 #endif
