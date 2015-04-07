@@ -56,7 +56,7 @@ Mesh_Element::Mesh_Element(std::string &line) {
   std::vector <std::string> *wordlist;
   wordlist = strsplit(line, ' ');
   
-  for (int ind_word=0;ind_word<(int)wordlist->size();ind_word++) {
+  for (unsigned int ind_word=0;ind_word<wordlist->size();ind_word++) {
     std::string word = (*wordlist)[ind_word];
     int word_int = atoi(word.c_str());
 
